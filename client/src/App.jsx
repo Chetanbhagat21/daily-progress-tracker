@@ -44,21 +44,23 @@ export default function App() {
   // ======================
   // LOGIN HANDLER (FIXED)
   // ======================
-  const handleLogin = async () => {
-    try {
-      const data = await loginUser(email, password);
+const handleLogin = async () => {
+  try {
+    const res = await loginUser({
+      email,
+      password
+    });
 
-      // ✅ SAVE TOKEN
-      localStorage.setItem("token", data.token);
-      setIsLoggedIn(true);
+    // ✅ SAVE TOKEN
+    localStorage.setItem("token", res.data.token);
+    setIsLoggedIn(true);
 
-      // ✅ LOAD USER DATA
-      loadAll();
-    } catch (err) {
-      alert("Login failed");
-      console.error(err.response?.data || err.message);
-    }
-  };
+    loadAll();
+  } catch (err) {
+    alert("Login failed");
+    console.error(err.response?.data || err.message);
+  }
+};
 
   // ======================
   // LOAD DATA
